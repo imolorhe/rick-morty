@@ -23,6 +23,16 @@ const routes: Array<RouteConfig> = [
     path: '/characters',
     name: 'Characters',
     component: () => import('../views/Characters.vue'),
+    children: [
+      {
+        path: ':characterId',
+        component: () => import('../views/CharacterDetails.vue'),
+        props: true,
+        meta: {
+          showModal: true,
+        }
+      }
+    ],
   },
 ];
 

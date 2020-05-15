@@ -1,6 +1,7 @@
 <template>
   <div
-    class="max-w-sm w-full lg:max-w-full lg:flex shadow-md hover:shadow-xl transition duration-300 ease-in transform hover:-translate-y-px"
+    class="max-w-sm w-full lg:max-w-full lg:flex shadow-md hover:shadow-xl transition duration-300 ease-in transform hover:-translate-y-px rounded cursor-pointer"
+    @click="$emit('click', character)"
   >
     <div
       class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"

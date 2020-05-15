@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import { MutationTree } from 'vuex';
-import { State } from './state';
+import { State, CharacterDataModel } from './state';
 
 const mutations: MutationTree<State> = {
   getCharactersSuccess(state, data) {
-    const list: any[] = [];
-    data.results.forEach((item: any) => {
+    const list: number[] = [];
+    data.results.forEach((item: CharacterDataModel) => {
       list.push(item.id);
       Vue.set(state.characters.map, item.id, item);
     });
