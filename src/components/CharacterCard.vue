@@ -1,7 +1,7 @@
 <template>
   <div
     class="max-w-sm w-full lg:max-w-full lg:flex shadow-md hover:shadow-xl transition duration-300 ease-in transform hover:-translate-y-px rounded cursor-pointer"
-    @click="$emit('click', character)"
+    @click="onClickCard"
   >
     <div
       class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
@@ -16,7 +16,11 @@
           {{ character.name }}
           <div class="text-sm text-gray-600">
             {{ character.gender }} &middot;
-            <span :class="statusClasses">{{ character.status }}</span>
+            <span
+              tid="character-card-status"
+              :class="statusClasses"
+              >{{ character.status }}</span
+            >
             &middot; {{ character.origin.name }}
           </div>
         </div>
@@ -52,6 +56,11 @@ export default Vue.extend({
         'text-green-600': this.character.status === 'Alive',
         'text-red-600': this.character.status !== 'Alive',
       };
+    },
+  },
+  methods: {
+    onClickCard() {
+      this.$emit('click', this.character);
     },
   },
 });
