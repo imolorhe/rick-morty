@@ -5,7 +5,7 @@
     <div class="flex items-center flex-shrink-0 text-white mr-6">
       <img
         svg-inline
-        class="fill-current w-10 h-10 mr-4"
+        class="logo fill-current w-10 h-10 mr-4"
         src="../assets/rick.svg"
         alt="rick"
       />
