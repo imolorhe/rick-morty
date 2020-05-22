@@ -14,6 +14,7 @@
         </div>
       </div>
     </div>
+    <Pagination />
     <div
       class="modal fixed w-full h-full top-0 left-0 flex items-center justify-center"
       :class="modalClasses"
@@ -70,6 +71,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import CharacterCard from '@/components/CharacterCard.vue';
+import Pagination from '@/components/Pagination.vue';
 import { mapActions, mapGetters } from 'vuex';
 import { CharacterDataModel } from '../store/state';
 
@@ -77,6 +79,7 @@ export default Vue.extend({
   name: 'Characters',
   components: {
     CharacterCard,
+    Pagination,
   },
   data() {
     return {
