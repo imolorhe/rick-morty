@@ -8,33 +8,33 @@ describe('mutations', () => {
           info: {},
           list: [],
           map: {},
-        }
-      }
+        },
+      };
       const payload = {
         info: { reqDetails: 1 },
         results: [
           {
             id: 1,
-            name: 'First'
+            name: 'First',
           },
           {
             id: 2,
-            name: 'Second'
-          }
+            name: 'Second',
+          },
         ],
       };
       (mutations as any).getCharactersSuccess(state, payload);
-  
-      expect(state.characters.list).toEqual([ 1, 2 ]);
+
+      expect(state.characters.list).toEqual([1, 2]);
       expect(state.characters.map).toEqual({
         1: {
           id: 1,
-          name: 'First'
+          name: 'First',
         },
         2: {
           id: 2,
-          name: 'Second'
-        }
+          name: 'Second',
+        },
       });
       expect(state.characters.info).toEqual(payload.info);
     });

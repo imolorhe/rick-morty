@@ -11,7 +11,7 @@ const mutations: MutationTree<State> = {
     });
     state.characters.list = list;
     state.characters.info = data.info;
-  }
+  },
 };
 
 export default mutations;

@@ -40,7 +40,7 @@ const state: State = {
     },
     map: {},
     list: [],
-  }
+  },
 };
 
 export default state;

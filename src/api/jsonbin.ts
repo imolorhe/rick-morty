@@ -11,7 +11,7 @@ export function createBin(data: any) {
   return api.post('/b', data, {
     headers: {
       'collection-id': process.env.VUE_APP_JSONBIN_IO_COLLECTION_ID,
-    }
+    },
   });
 }
 
@@ -20,5 +20,7 @@ export function updateBin(id: string, data: any) {
 }
 
 export function getAll() {
-  return api.get(`/e/collection/${process.env.VUE_APP_JSONBIN_IO_COLLECTION_ID}/all-bins`);
+  return api.get(
+    `/e/collection/${process.env.VUE_APP_JSONBIN_IO_COLLECTION_ID}/all-bins`
+  );
 }

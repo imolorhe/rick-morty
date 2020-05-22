@@ -19,7 +19,7 @@ describe('CharacterCard', () => {
     const comp = shallowMount(CharacterCard, {
       propsData: {
         character,
-      }
+      },
     });
     expect(comp.contains(character.name));
     expect(comp.contains(character.image));
@@ -46,9 +46,13 @@ describe('CharacterCard', () => {
     const comp = shallowMount(CharacterCard, {
       propsData: {
         character,
-      }
+      },
     });
-    expect(comp.find('[tid="character-card-status"]').classes('text-green-600')).toBe(true);
+    expect(
+      comp
+        .find('[tid="character-card-status"]')
+        .classes('text-green-600')
+    ).toBe(true);
   });
   it('should render status as red if dead', () => {
     const character = {
@@ -67,9 +71,13 @@ describe('CharacterCard', () => {
     const comp = shallowMount(CharacterCard, {
       propsData: {
         character,
-      }
+      },
     });
-    expect(comp.find('[tid="character-card-status"]').classes('text-red-600')).toBe(true);
+    expect(
+      comp
+        .find('[tid="character-card-status"]')
+        .classes('text-red-600')
+    ).toBe(true);
   });
   it('should emit click with the character when clicked', () => {
     const character = {
@@ -88,10 +96,10 @@ describe('CharacterCard', () => {
     const comp = shallowMount(CharacterCard, {
       propsData: {
         character,
-      }
+      },
     });
     comp.trigger('click');
     expect(comp.emitted('click').length).toBe(1);
-    expect(comp.emitted('click')[0]).toEqual([ character ]);
+    expect(comp.emitted('click')[0]).toEqual([character]);
   });
 });
