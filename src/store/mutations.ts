@@ -3,7 +3,7 @@ import { MutationTree } from 'vuex';
 import { State, CharacterDataModel } from './state';
 
 const mutations: MutationTree<State> = {
-  getCharactersSuccess(state, data) {
+  getCharactersSuccess(state, { page, data }) {
     const list: number[] = [];
     data.results.forEach((item: CharacterDataModel) => {
       list.push(item.id);
@@ -11,6 +11,7 @@ const mutations: MutationTree<State> = {
     });
     state.characters.list = list;
     state.characters.info = data.info;
+    state.characters.info.page = page;
   },
 };
 

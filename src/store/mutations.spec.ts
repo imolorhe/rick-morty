@@ -23,7 +23,7 @@ describe('mutations', () => {
           },
         ],
       };
-      (mutations as any).getCharactersSuccess(state, payload);
+      (mutations as any).getCharactersSuccess(state, { data: payload, page: 1 });
 
       expect(state.characters.list).toEqual([1, 2]);
       expect(state.characters.map).toEqual({

@@ -3,7 +3,7 @@
     <div class="p-2">
       <div class="flex flex-wrap -mx-2">
         <div
-          v-for="character of characters"
+          v-for="character of characterList"
           :key="character.id"
           class="w-1/2 p-4"
         >
@@ -14,7 +14,12 @@
         </div>
       </div>
     </div>
-    <Pagination />
+    <Pagination
+      :items-per-page="20"
+      :page="characters.info.page"
+      :item-count="characters.info.count"
+      @go-to="goToPage"
+    />
     <div
       class="modal fixed w-full h-full top-0 left-0 flex items-center justify-center"
       :class="modalClasses"
@@ -72,7 +77,7 @@
 import Vue from 'vue';
 import CharacterCard from '@/components/CharacterCard.vue';
 import Pagination from '@/components/Pagination.vue';
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 import { CharacterDataModel } from '../store/state';
 
 export default Vue.extend({
@@ -87,7 +92,8 @@ export default Vue.extend({
     };
   },
   computed: {
-    ...mapGetters(['characters']),
+    ...mapState(['characters']),
+    ...mapGetters(['characterList']),
     modalClasses(): unknown {
       return {
         'opacity-0': !this.showModal,
@@ -96,24 +102,35 @@ export default Vue.extend({
     },
   },
   mounted() {
-    this.getCharacters();
+    const page = this.$route.query.page || 1;
+    this.getCharacters({ page });
   },
   watch: {
     $route: {
       immediate: true,
-      handler(newVal) {
+      handler(newVal, oldVal) {
         this.showModal = newVal.meta && newVal.meta.showModal;
+
+        if (oldVal && newVal.query.page !== oldVal.query.page) {
+          this.getCharacters({ page: newVal.query.page });
+        }
       },
     },
   },
   methods: {
     ...mapActions(['getCharacters']),
     goToCharacter(character: CharacterDataModel) {
-      this.$router.push(`/characters/${character.id}`);
+      this.$router.push({
+        path: `/characters/${character.id}`,
+        query: this.$route.query,
+      });
     },
     onCloseModal() {
       this.showModal = false;
-      this.$router.push('./');
+      this.$router.push({ path: './', query: this.$route.query });
+    },
+    goToPage(page: number) {
+      this.$router.push(`?page=${page}`);
     },
   },
 });

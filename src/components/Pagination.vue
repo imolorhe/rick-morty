@@ -22,11 +22,17 @@
       <div>
         <p class="text-sm leading-5 text-gray-700">
           Showing
-          <span class="font-medium">1</span>
+          <span class="font-medium" data-tid="showing_from">
+            {{ showingFrom }}
+          </span>
           to
-          <span class="font-medium">10</span>
+          <span class="font-medium" data-tid="showing_to">
+            {{ showingTo }}
+          </span>
           of
-          <span class="font-medium">97</span>
+          <span class="font-medium" data-tid="total_count">
+            {{ itemCount }}
+          </span>
           results
         </p>
       </div>
@@ -34,8 +40,11 @@
         <nav class="relative z-0 inline-flex shadow-sm">
           <button
             type="button"
-            class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150"
+            :class="previousButtonClasses"
+            data-tid="previous"
             aria-label="Previous"
+            :disabled="!previousPage"
+            @click="goto(previousPage)"
           >
             <svg
               class="h-5 w-5"
@@ -51,49 +60,11 @@
           </button>
           <button
             type="button"
-            class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150"
-          >
-            1
-          </button>
-          <button
-            type="button"
-            class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150"
-          >
-            2
-          </button>
-          <button
-            type="button"
-            class="hidden md:inline-flex -ml-px relative items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150"
-          >
-            3
-          </button>
-          <span
-            class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700"
-          >
-            ...
-          </span>
-          <button
-            type="button"
-            class="hidden md:inline-flex -ml-px relative items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150"
-          >
-            8
-          </button>
-          <button
-            type="button"
-            class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150"
-          >
-            9
-          </button>
-          <button
-            type="button"
-            class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150"
-          >
-            10
-          </button>
-          <button
-            type="button"
-            class="-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150"
+            :class="nextButtonClasses"
+            data-tid="next"
             aria-label="Next"
+            :disabled="!nextPage"
+            @click="goto(nextPage)"
           >
             <svg
               class="h-5 w-5"
@@ -118,5 +89,107 @@ import Vue from 'vue';
 
 export default Vue.extend({
   name: 'Pagination',
+  props: {
+    itemsPerPage: {
+      type: Number,
+      default: 1,
+    },
+    page: {
+      type: Number,
+      default: 1,
+    },
+    itemCount: {
+      type: Number,
+      default: 1,
+    },
+  },
+  computed: {
+    showingFrom(): number {
+      return (this.page - 1) * this.itemsPerPage + 1;
+    },
+    showingTo(): number {
+      return this.page * this.itemsPerPage;
+    },
+    pageCount(): number {
+      return Math.ceil(this.itemCount / this.itemsPerPage);
+    },
+    previousPage(): number | null {
+      if (this.page > 1) {
+        return this.page - 1;
+      }
+      return null;
+    },
+    nextPage(): number | null {
+      if (this.pageCount >= this.page + 1) {
+        return this.page + 1;
+      }
+
+      return null;
+    },
+    previousButtonClasses(): unknown {
+      return {
+        relative: true,
+        'inline-flex': true,
+        'items-center': true,
+        'px-2': true,
+        'py-2': true,
+        'rounded-l-md': true,
+        border: true,
+        'border-gray-300': true,
+        'bg-white': true,
+        'text-sm': true,
+        'leading-5': true,
+        'font-medium': true,
+        'text-gray-500': true,
+        'hover:text-gray-400': !!this.previousPage,
+        'focus:z-10': true,
+        'focus:outline-none': true,
+        'focus:border-blue-300': true,
+        'focus:shadow-outline-blue': true,
+        'active:bg-gray-100': true,
+        'active:text-gray-500': true,
+        transition: true,
+        'ease-in-out': true,
+        'duration-150': true,
+        'opacity-50': !this.previousPage,
+        'cursor-default': !this.previousPage,
+      };
+    },
+    nextButtonClasses(): unknown {
+      return {
+        '-ml-px': true,
+        relative: true,
+        'inline-flex': true,
+        'items-center': true,
+        'px-2': true,
+        'py-2': true,
+        'rounded-r-md': true,
+        border: true,
+        'border-gray-300': true,
+        'bg-white': true,
+        'text-sm': true,
+        'leading-5': true,
+        'font-medium': true,
+        'text-gray-500': true,
+        'hover:text-gray-400': true,
+        'focus:z-10': true,
+        'focus:outline-none': true,
+        'focus:border-blue-300': true,
+        'focus:shadow-outline-blue': true,
+        'active:bg-gray-100': true,
+        'active:text-gray-500': true,
+        transition: true,
+        'ease-in-out': true,
+        'duration-150': true,
+        'opacity-50': !this.nextPage,
+        'cursor-default': !this.nextPage,
+      };
+    },
+  },
+  methods: {
+    goto(page: number) {
+      this.$emit('go-to', page);
+    },
+  },
 });
 </script>

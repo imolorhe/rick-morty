@@ -13,7 +13,19 @@ describe('actions', () => {
       expect(rickmorty.getCharacter).toHaveBeenCalled();
       expect(commit).toHaveBeenCalledWith(
         'getCharactersSuccess',
-        data
+        { data, page: 1 }
+      );
+    });
+    it('should commit pass specified page to API and commit it', async () => {
+      const commit = jest.fn();
+      const data = { x: 1 };
+      (rickmorty.getCharacter as any).mockImplementation(() => data);
+      await (actions as any).getCharacters({ commit }, { page: 3 });
+
+      expect(rickmorty.getCharacter).toHaveBeenCalledWith({ page: 3 });
+      expect(commit).toHaveBeenCalledWith(
+        'getCharactersSuccess',
+        { data, page: 3 }
       );
     });
   });

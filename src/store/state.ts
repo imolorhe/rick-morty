@@ -18,6 +18,7 @@ export interface InfoDataModel {
   next: string | null;
   prev: string | null;
   pages: number;
+  page?: number;
 }
 
 interface CharactersState {

@@ -15,9 +15,9 @@ describe('getters', () => {
     },
   };
 
-  describe('characters', () => {
+  describe('characterList', () => {
     it('should return list of character data', () => {
-      expect((getters as any).characters(state)).toEqual([
+      expect((getters as any).characterList(state)).toEqual([
         {
           x: 1,
         },
