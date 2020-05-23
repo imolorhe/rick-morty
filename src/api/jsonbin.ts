@@ -19,8 +19,18 @@ export function updateBin(id: string, data: any) {
   return api.put(`/b/${id}`, data);
 }
 
-export function getAll() {
+export function getNoteById(id: string) {
+  return api.get(`/b/${id}`);
+}
+
+export function getAllNotes() {
   return api.get(
     `/e/collection/${process.env.VUE_APP_JSONBIN_IO_COLLECTION_ID}/all-bins`
-  );
+  ).then(({ data }) => {
+    const ids = data.records.map((_: any) => _.id);
+
+    return axios.all(
+      ids.map((id: any) => getNoteById(id))
+    ).then(list => list.map((_: any, i) => ({ ..._.data, id: ids[i] })));
+  })
 }

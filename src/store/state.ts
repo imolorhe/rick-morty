@@ -27,8 +27,16 @@ interface CharactersState {
   list: number[];
 }
 
+interface NoteState {
+  id: string;
+  characterId: string;
+  note: string;
+  createdAt: number;
+}
+
 export interface State {
   characters: CharactersState;
+  notes: NoteState[];
 }
 
 const state: State = {
@@ -42,6 +50,7 @@ const state: State = {
     map: {},
     list: [],
   },
+  notes: [],
 };
 
 export default state;

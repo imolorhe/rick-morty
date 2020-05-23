@@ -39,4 +39,22 @@ describe('mutations', () => {
       expect(state.characters.info).toEqual(payload.info);
     });
   });
+
+  describe('getNotesSuccess', () => {
+    it('should save notes to state', () => {
+      const state = {
+        notes: []
+      };
+      const notes = [
+        {
+          id: '13f23g4',
+          characterId: '2',
+          note: 'hello',
+        }
+      ];
+      (mutations as any).getNotesSuccess(state, { notes });
+
+      expect(state.notes).toEqual(notes);
+    });
+  });
 });

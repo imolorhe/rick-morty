@@ -57,16 +57,6 @@
 
           <!--Body-->
           <router-view></router-view>
-
-          <!--Footer-->
-          <div class="flex justify-end pt-2">
-            <button
-              class="modal-close px-4 bg-purple-600 py-2 rounded-full text-white hover:bg-purple-500 transition duration-300"
-              @click="onCloseModal"
-            >
-              Close
-            </button>
-          </div>
         </div>
       </div>
     </div>

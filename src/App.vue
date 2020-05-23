@@ -8,11 +8,18 @@
 <script lang="ts">
 import Vue from 'vue';
 import Header from '@/components/Header.vue';
+import { mapActions } from 'vuex';
 
 export default Vue.extend({
   name: 'App',
   components: {
     Header,
+  },
+  mounted() {
+    this.getNotes();
+  },
+  methods: {
+    ...mapActions(['getNotes']),
   },
 });
 </script>

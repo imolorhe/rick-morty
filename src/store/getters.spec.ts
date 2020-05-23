@@ -13,6 +13,18 @@ describe('getters', () => {
         },
       },
     },
+    notes: [
+      {
+        id: '2dh29',
+        characterId: '1',
+        note: 'hello 1'
+      },
+      {
+        id: '23523d3',
+        characterId: '2',
+        note: 'hello 2',
+      },
+    ],
   };
 
   describe('characterList', () => {
@@ -33,6 +45,18 @@ describe('getters', () => {
       expect((getters as any).getCharacterById(state)(2)).toEqual({
         x: 2,
       });
+    });
+  });
+
+  describe('getCharacterNotes', () => {
+    it('should return notes for a character', () => {
+      expect((getters as any).getCharacterNotes(state)(2)).toEqual([
+        {
+          id: '23523d3',
+          characterId: '2',
+          note: 'hello 2',
+        }
+      ]);
     });
   });
 });

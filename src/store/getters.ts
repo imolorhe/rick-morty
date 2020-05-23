@@ -8,6 +8,9 @@ const getters: GetterTree<State, State> = {
   getCharacterById(state) {
     return (id: number) => state.characters.map[id];
   },
+  getCharacterNotes(state) {
+    return (id: number) => state.notes.filter(note => Number(note.characterId) === id);
+  },
 };
 
 export default getters;

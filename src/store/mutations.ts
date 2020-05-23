@@ -13,6 +13,9 @@ const mutations: MutationTree<State> = {
     state.characters.info = data.info;
     state.characters.info.page = page;
   },
+  getNotesSuccess(state, { notes }) {
+    state.notes = notes;
+  },
 };
 
 export default mutations;
