@@ -48,4 +48,30 @@ describe('Pagination', () => {
     });
     expect(comp.find('[data-tid="next"]').attributes('disabled')).toBeFalsy();
   });
+
+  it('should emit go-to event with previous page if previous button is clicked', () => {
+    const comp = shallowMount(Pagination, {
+      propsData: {
+        itemsPerPage: 5,
+        page: 2,
+        itemCount: 12,
+      },
+    });
+    comp.find('[data-tid="previous"]').trigger('click');
+    expect(comp.emitted('go-to').length).toBe(1);
+    expect(comp.emitted('go-to')[0]).toEqual([1]);
+  });
+
+  it('should emit go-to event with next page if next button is clicked', () => {
+    const comp = shallowMount(Pagination, {
+      propsData: {
+        itemsPerPage: 5,
+        page: 2,
+        itemCount: 12,
+      },
+    });
+    comp.find('[data-tid="next"]').trigger('click');
+    expect(comp.emitted('go-to').length).toBe(1);
+    expect(comp.emitted('go-to')[0]).toEqual([3]);
+  });
 });
