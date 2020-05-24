@@ -65,7 +65,9 @@
           class="note-item mb-4"
         >
           <p class="text-gray-700 text-base">{{ note.note }}</p>
-          <p class="text-sm text-gray-600">Aug 18</p>
+          <p class="text-sm text-gray-600">
+            {{ formatDate(note.createdAt) }}
+          </p>
         </div>
       </div>
     </div>
@@ -109,6 +111,25 @@ export default Vue.extend({
       }).then(() => {
         this.noteModel = '';
       });
+    },
+    formatDate(epoch: number) {
+      const date = new Date(epoch);
+
+      const months = [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
+      ];
+      return `${date.getDate()} ${months[date.getMonth()]}`;
     },
   },
 });
