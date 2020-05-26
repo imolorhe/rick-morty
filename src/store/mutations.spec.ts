@@ -1,5 +1,13 @@
 import mutations from './mutations';
 
+jest.mock('vue', () => {
+  return {
+    set(target: any, prop: string, value: any) {
+      target[prop] = value;
+    },
+  };
+});
+
 describe('mutations', () => {
   describe('getCharactersSuccess', () => {
     it('should set the correct state values', () => {
@@ -36,7 +44,7 @@ describe('mutations', () => {
           name: 'Second',
         },
       });
-      expect(state.characters.info).toEqual(payload.info);
+      expect(state.characters.info).toEqual({ reqDetails: 1, page: 1 });
     });
   });
 

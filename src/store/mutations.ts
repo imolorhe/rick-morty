@@ -10,7 +10,7 @@ const mutations: MutationTree<State> = {
       Vue.set(state.characters.map, item.id, item);
     });
     state.characters.list = list;
-    state.characters.info = data.info;
+    state.characters.info = { ...data.info };
     state.characters.info.page = page;
   },
   getNotesSuccess(state, { notes }) {
