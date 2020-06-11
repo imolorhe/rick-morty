@@ -2,7 +2,7 @@ import CharacterCard from './CharacterCard.vue';
 import { shallowMount } from '@vue/test-utils';
 
 describe('CharacterCard', () => {
-  it('should render the character', () => {
+  it('should render the character basic details', () => {
     const character = {
       name: 'Character',
       image: 'character.jpg',
@@ -21,13 +21,8 @@ describe('CharacterCard', () => {
         character,
       },
     });
-    expect(comp.contains(character.name));
-    expect(comp.contains(character.image));
-    expect(comp.contains(character.gender));
-    expect(comp.contains(character.status));
-    expect(comp.contains(character.species));
-    expect(comp.contains(character.origin.name));
-    expect(comp.contains(character.location.name));
+
+    expect(comp.html()).toMatchSnapshot();
   });
   it('should render status as green if alive', () => {
     const character = {

@@ -8,7 +8,7 @@ describe('Header', () => {
         RouterLink: true,
       },
     });
-    expect(comp.find('.logo').exists()).toBe(true);
-    expect(comp.text()).toContain("Rick's Place");
+
+    expect(comp.html()).toMatchSnapshot();
   });
 });
